@@ -27,6 +27,13 @@ pro makeplots,gal,file,phasecen,imageSize,chans2do,distance,rmsfac,vsys,specbox,
   halfsize=imageSize/2.
   if keyword_set(outputfits) then fits=gal
   
+  ;;;; Sometimes CASA does strange things with the beam, so check and deal with this
+  if sxpar(hdr,'CASAMBM') then begin
+ 	 beamtab=mrdfits(file,1)
+     sxaddpar,hdr,'BMAJ', mean(beamtab.bmaj)/3600.
+	 sxaddpar,hdr,'BMIN', mean(beamtab.bmin)/3600.
+	 sxaddpar,hdr,'BPA', mean(beamtab.bpa)
+  endif
   
   HEXTRACTCUBE, fdata, hdr, fnew, newhdr, phasecen[0]-halfsize, phasecen[0]+halfsize,phasecen[1]-halfsize,phasecen[1]+halfsize, /SILENT
   
