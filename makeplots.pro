@@ -69,7 +69,7 @@ pro makeplots,gal,file,phasecen,imageSize,chans2do,distance,rmsfac,vsys,specbox,
   if not keyword_set(eps) then read,meep
 
 
-  mk_spec,fdata,hdr,rms,rmsfac=0.0001,vsys=vsys,file=gal+"_spec",eps=eps,box=specbox,phasecen=phasecen,/ystyle,gal=gal,chans2do=chans2do,xrange=vrange,nsum=nsum,dist=distance
+  mk_spec,fdata,hdr,rms,rmsfac=0.0001,vsys=vsys,file=gal+"_spec",eps=eps,box=specbox,phasecen=phasecen,/ystyle,gal=gal,chans2do=chans2do,xrange=vrange,nsum=nsum,dist=distance,fits=fits
 
   meep=""
   if not keyword_set(eps) then read,meep

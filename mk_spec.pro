@@ -1,4 +1,4 @@
-pro mk_spec,f,hdrs,rms,box=box,rmsfac=rmsfac,vsys=vsys,_extra=_extra,eps=eps,file=file,phasecen=phasecen,gal=gal,nsum=nsum,distance=distance,chans2do=chans2do
+pro mk_spec,f,hdrs,rms,box=box,rmsfac=rmsfac,vsys=vsys,_extra=_extra,eps=eps,file=file,phasecen=phasecen,gal=gal,nsum=nsum,distance=distance,chans2do=chans2do,fits=fits
   starteps,file=file,eps=eps ;;; plot to X window or EPS, depending on inputs
   cgloadct,39
   if not keyword_set(rmsfac) then rmsfac=3.
@@ -40,4 +40,6 @@ pro mk_spec,f,hdrs,rms,box=box,rmsfac=rmsfac,vsys=vsys,_extra=_extra,eps=eps,fil
   print,"Assuming you are observing CO(1-0):"
   print,"H2mass (Xco=3e20):",alog10(3.93e-17*3e20*(distance^2)*total(totflux))," Msun
   
+
+  if keyword_set(fits) then makefits,spec/total(psf),hdrs,fits,"spec",vels=v1
 end
