@@ -74,7 +74,7 @@ pro makeplots,gal,file,phasecen,imageSize,chans2do,distance,rmsfac,vsys,specbox,
   meep=""
   if not keyword_set(eps) then read,meep
 
-  mk_pvd,fdata,hdr,rms,posang,mask,rmsfac=rmsfac,vsys=vsys,chans2do=[(chans2do[0]-10)>0 ,(chans2do[1]+10)<s[3]-1],phasecen=[halfsize,halfsize],dist=distance,bardist=bardist,kpc=kpc,eps=eps,file=gal+"_PVD",xrange=xrange,specialclip=specialclip,pvdthick=pvdthick
+  mk_pvd,fdata,hdr,rms,posang,mask,rmsfac=rmsfac,vsys=vsys,chans2do=[(chans2do[0]-10)>0 ,(chans2do[1]+10)<s[3]-1],phasecen=[halfsize,halfsize],dist=distance,bardist=bardist,kpc=kpc,eps=eps,file=gal+"_PVD",xrange=xrange,specialclip=specialclip,pvdthick=pvdthick,fits=fits
   
   meep=""
   if not keyword_set(eps) then read,meep

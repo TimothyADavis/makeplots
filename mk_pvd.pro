@@ -1,7 +1,7 @@
 
 
 
-pro mk_pvd,f,hdrs,rms,posang,mask,rmsfac=rmsfac,_extra=_extra,dv=dv,vsys=vsys,eps=eps,file=file,phasecen=phasecen,dist=dist,bardist=bardist,kpc=kpc,chans2do=chans2do,xrange=xrange,vrange=vrange,pvdthick=pvdthick
+pro mk_pvd,f,hdrs,rms,posang,mask,rmsfac=rmsfac,_extra=_extra,dv=dv,vsys=vsys,eps=eps,file=file,phasecen=phasecen,dist=dist,bardist=bardist,kpc=kpc,chans2do=chans2do,xrange=xrange,vrange=vrange,pvdthick=pvdthick,fits=fits
   starteps,file=file,eps=eps,xsize=8, ysize=5 ;;; plot to X window or EPS, depending on inputs
 
 
@@ -53,6 +53,8 @@ pro mk_pvd,f,hdrs,rms,posang,mask,rmsfac=rmsfac,_extra=_extra,dv=dv,vsys=vsys,ep
    endif
 
    al_legend,["PA: "+strcompress(round(posang),/rem)+cgSymbol('deg')],/bottom,/left,textcolor=0,box=0,charsize=1.5
+
+   if keyword_set(fits) then makefits,pvddata,hdrs,fits,"pvd",phasecen=phasecen
 
    endeps,eps=eps,file=file
 end
