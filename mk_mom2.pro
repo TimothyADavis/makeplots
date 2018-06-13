@@ -27,7 +27,7 @@ pro mk_mom2,f,hdrs,rms,mask,rmsfac=rmsfac,_extra=_extra,dv=dv,vsys=vsys,eps=eps,
         for j=0,s[2]-1 do begin
 			if total(cube[i,j,*],/nan) gt 0 then begin
           	 mom1[i,j]=total(cube[i,j,*]*v1,/nan)/(total(cube[i,j,*],/nan))
-			 mom2[i,j]=sqrt(total(cube[i,j,*]*((v1-mom1[i,j])^2),/nan)/(total(cube[i,j,*],/nan)))
+			 mom2[i,j]=sqrt(total(abs(cube[i,j,*])*((v1-mom1[i,j])^2),/nan)/total(abs(cube[i,j,*]),/nan))
 			endif
         endfor
   endfor
@@ -38,7 +38,7 @@ pro mk_mom2,f,hdrs,rms,mask,rmsfac=rmsfac,_extra=_extra,dv=dv,vsys=vsys,eps=eps,
  
  
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Do Plotting ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  if not keyword_set(maxsigma) then maxsigma=max(mom2,/nan)
+  if not keyword_set(maxsigma) then maxsigma=(median(mom2)+5*stddev(mom2,/nan)) < max(mom2,/nan)
   levs2do=findgen(21)*(maxsigma/20.)
   cgloadct,0
   contour,mom2,x1,y1,levels=levs2do,background=255,color=0,/fill,/nodata,/iso,_extra=_extra,charsize=1.5,xtitle='RA offset (")',ytitle='DEC offset (")',/xstyle,/ystyle
