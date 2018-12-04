@@ -1,11 +1,15 @@
-pro makefits,array,cubeheader,filename,whichmoment,clip=clip,vels=vels,phasecen=phasecen
+pro makefits,array,cubeheader_sav,filename,whichmoment,clip=clip,vels=vels,phasecen=phasecen,chans2do=chans2do
+	cubeheader=cubeheader_sav
 	if  STRLOWCASE(whichmoment) eq "spec" then whichmoment=3
 	if  STRLOWCASE(whichmoment) eq "pvd" then whichmoment=4
 	
-	s=size(array)
-    v1=((findgen(s[3])-sxpar(cubeheader,'crpix3'))*(sxpar(cubeheader,'cdelt3'))) + sxpar(cubeheader,'crval3')
-    if v1[0] gt 1e9 then v1=(redshiftbackf(sxpar(cubeheader,'RESTFRQ'),v1)) 
-    v1/=1e3
+	
+	if not keyword_set(phasecen) then phasecen=[sxpar(cubeheader,'NAXIS1')/2,sxpar(cubeheader,'NAXIS1')/2]
+	make_coords,[3,sxpar(cubeheader,'NAXIS1'),sxpar(cubeheader,'NAXIS2'),sxpar(cubeheader,'NAXIS3')],phasecen,cubeheader,x1,y1,v1
+    if keyword_set(chans2do) then v1=v1[chans2do[0]:chans2do[1]]
+  	
+	
+	
 	dv=abs(v1[1]-v1[0])
 	if whichmoment eq 0 then begin
 	    array*=dv
@@ -28,7 +32,7 @@ pro makefits,array,cubeheader,filename,whichmoment,clip=clip,vels=vels,phasecen=
 		write_csv,fname,vels,array,header=["Velocity (km/s)","Flux Density (Jy)"]
 	endif
 	if whichmoment eq 4 then begin
-		make_coords,s,phasecen,cubeheader,x1,y1,v1
+		
 		MKHDR, newheader, array, /IMAGE
 	    array*=dv
 		sxaddpar,newheader,'BUNIT','Jy/beam.km/s'

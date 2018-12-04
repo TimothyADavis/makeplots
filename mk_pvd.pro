@@ -54,7 +54,7 @@ pro mk_pvd,f,hdrs,rms,posang,mask,rmsfac=rmsfac,_extra=_extra,dv=dv,vsys=vsys,ep
 
    al_legend,["PA: "+strcompress(round(posang),/rem)+cgSymbol('deg')],/bottom,/left,textcolor=0,box=0,charsize=1.5
 
-   if keyword_set(fits) then makefits,pvddata,hdrs,fits,"pvd",phasecen=phasecen
+   if keyword_set(fits) then makefits,pvddata,hdrs,fits,"pvd",phasecen=phasecen,chans2do=chans2do
 
    endeps,eps=eps,file=file
 end
