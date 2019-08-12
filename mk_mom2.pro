@@ -18,7 +18,10 @@ pro mk_mom2,f,hdrs,rms,mask,rmsfac=rmsfac,_extra=_extra,dv=dv,vsys=vsys,eps=eps,
      chans2do=[0,0]
   endelse
  
-  if v1[0] gt v1[-1] then v1=reverse(v1)
+  if v1[0] gt v1[-1] then begin
+	  v1=reverse(v1)
+	  cube=reverse(cube,3)
+  endif
 
   
   mom1=fltarr(s[1],s[2])*!VALUES.F_NAN
